@@ -117,6 +117,9 @@ class _LoginState extends State<Registration> {
             IconButton(
                 onPressed: () {
                   authServices.registeruser(email.text, pass.text, name.text);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const Login(),
+                  ));
                 },
                 icon: const Text("Register")),
             IconButton(

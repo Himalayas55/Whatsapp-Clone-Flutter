@@ -1,0 +1,58 @@
+Stack(
+          children: [
+            // IconButton(
+            //     onPressed: () {},
+            //     icon: const Icon(Icons.emoji_emotions_outlined)),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 50,
+                width: 350,
+                child: TextField(
+                  controller: controller,
+                  decoration: const InputDecoration(
+                      hintText: "Message",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)))),
+                ),
+              ),
+            )),
+            // camera///////////////////////////////////////////////////////////////
+            Padding(
+              padding: const EdgeInsets.only(left: 300, top: 10),
+              child: IconButton(
+                  onPressed: () {
+                    _pickImage();
+                  },
+                  icon: const Icon(
+                    Icons.photo_camera_outlined,
+                  )),
+            ),
+            // attach///////////////////////////////////////////////////////////
+            Padding(
+              padding: const EdgeInsets.only(left: 260, top: 10),
+              child: IconButton(
+                  onPressed: () {
+                    _pickImage();
+                  },
+                  icon: Transform.rotate(
+                    angle: 100,
+                    child: const Icon(
+                      Icons.attach_file_outlined,
+                    ),
+                  )),
+            ),
+            // send/////////////////////////////////////////////////
+            Padding(
+              padding: const EdgeInsets.only(left: 360, top: 10),
+              child: IconButton(
+                  onPressed: () {
+                    chatProvider.sendMessage(
+                        widget.receiverUserId, controller.text, imageFile);
+                    controller.clear();
+                  },
+                  icon: const Icon(Icons.send)),
+            )
+          ],
+        )

@@ -115,87 +115,194 @@ class _ChatPageState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 70,
-        automaticallyImplyLeading: true,
-        foregroundColor: Colors.white,
-        title: Row(
+    return Container(
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/ok.jpg"), fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: Container(
-                height: 45,
-                width: 45,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.grey),
+            Container(
+              height: 100,
+              width: double.infinity,
+              color: const Color(0xff202C33),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 28,
+                        )),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.grey),
+                    ),
+                    const SizedBox(width: 7),
+                    Expanded(
+                      child: SizedBox(
+                        width: 150,
+                        child: Text(
+                          widget.receiverUserName,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 22),
+                        ),
+                      ),
+                    ),
+                    const Icon(
+                      Icons.videocam_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    const Icon(
+                      Icons.call,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 25),
+                    const Icon(
+                      Icons.more_vert,
+                      color: Colors.white,
+                      size: 29,
+                    )
+                  ],
+                ),
               ),
             ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              widget.receiverUserName,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: Colors.white),
-            ),
-            const SizedBox(
-              width: 80,
-            ),
-            const Icon(
-              Icons.videocam_rounded,
-              color: Colors.white,
-              size: 30,
-            ),
-            const SizedBox(
-              width: 25,
-            ),
-            const Icon(
-              Icons.call,
-              color: Colors.white,
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            const Icon(
-              Icons.more_vert_sharp,
-              color: Colors.white,
+            Expanded(
+              child: Column(children: [
+                Expanded(child: _chatBilder()),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          Expanded(
+                              child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                height: 52,
+                                width: 343,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xff2c373d),
+                                    borderRadius: BorderRadius.circular(28)),
+                                child: TextField(
+                                  controller: controller,
+                                  decoration: const InputDecoration(
+                                      enabledBorder: InputBorder.none,
+                                      hintText: "          Message",
+                                      hintStyle: TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.normal,
+                                          height: BorderSide.strokeAlignCenter,
+                                          fontFamily: 'Helvetica'),
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(30)))),
+                                ),
+                              ),
+                            ),
+                          )),
+                          // attach///////////////////////////////////////////////////////////
+                          Align(
+                            alignment: const AlignmentDirectional(.91, 0),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.5),
+                              child: IconButton(
+                                  onPressed: () {
+                                    chatProvider.sendMessage(
+                                        widget.receiverUserId, controller.text);
+                                    controller.clear();
+                                  },
+                                  icon: const Icon(
+                                    Icons.send,
+                                    color: Colors.white,
+                                  )),
+                            ),
+                          ),
+                          // send/////////////////////////////////////////////////
+                          Align(
+                            alignment: const AlignmentDirectional(.65, 0),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.5),
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.camera_alt_rounded,
+                                    color: Colors.white70,
+                                  )),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(.4, 0),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8.5),
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: Transform.rotate(
+                                    angle: 26,
+                                    child: const Icon(
+                                      Icons.attach_file_rounded,
+                                      color: Colors.white70,
+                                    ),
+                                  )),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 8.5,
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(-.95, 0),
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.emoji_emotions,
+                                    color: Colors.white60,
+                                    size: 28,
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 8, 185, 146),
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.mic,
+                            size: 30,
+                            color: Colors.white,
+                            opticalSize: 50,
+                          )),
+                    ),
+                  ],
+                ),
+              ]),
             ),
           ],
         ),
-        backgroundColor: const Color(0xff202C33),
       ),
-      body: Column(children: [
-        Expanded(child: _chatBilder()),
-        Row(
-          children: [
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: controller,
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)))),
-              ),
-            )),
-            // attach///////////////////////////////////////////////////////////
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.attach_file_outlined,
-                )),
-            // send/////////////////////////////////////////////////
-            IconButton(
-                onPressed: () {
-                  chatProvider.sendMessage(
-                      widget.receiverUserId, controller.text);
-                  controller.clear();
-                },
-                icon: const Icon(Icons.send))
-          ],
-        )
-      ]),
     );
   }
 
@@ -227,11 +334,10 @@ class _ChatPageState extends State<ChatScreen> {
         ? Alignment.centerRight
         : Alignment.centerLeft;
     var chatColor = data["senderId"] == fireAuth.currentUser!.uid
-        ? const Color(0xff00a884)
+        ? const Color.fromARGB(255, 10, 123, 112)
         : const Color.fromARGB(255, 57, 75, 90);
 
     return Container(
-      color: Colors.grey[300],
       alignment: alignment,
       child: Padding(
         padding: const EdgeInsets.only(left: 80, right: 10, bottom: 5, top: 10),
